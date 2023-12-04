@@ -1,4 +1,4 @@
-const API_URL = "https://computexapi-55f3a80f11dd.herokuapp.com/products/";
+const API_URL = "http://localhost:8000/products/";
 
 export const fetchProducts = async () => {
   try {
