@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-av=4hpiq9z_3v1@fhorracl2&ea^0*&-e&p-b*zg3z43g0(c^^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["16.170.148.180"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -94,8 +94,12 @@ WSGI_APPLICATION = "Computex.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "computex",
+        "USER": "admin",
+        "PASSWORD": "12345",
+        "HOST": "localhost",
+        "PORT": "5432"
     }
 }
 
