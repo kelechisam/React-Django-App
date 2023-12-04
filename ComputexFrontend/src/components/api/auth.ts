@@ -1,7 +1,7 @@
 // auth.ts
 import axios from "axios";
 
-const BASE_URL = "https://computexapi-55f3a80f11dd.herokuapp.com";
+const BASE_URL = "http://localhost:8000";
 
 export const login = async (username: string, password: string) => {
   try {
