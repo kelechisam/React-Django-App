@@ -1,27 +1,42 @@
-version: '3.8'
+version: '3.9'
 
-services: 
-  frontend: Computexfrontend
-    image: frontend_image:latest
+services:
+  frontend:
+    container_name: react-app
+    build: ./ComputexFrontend # docker build -t ./ComputexFrontend
     ports:
-      - "80:80"
+      - "80:80" # docker run -p 80:80 --name react-app react-image
     depends_on:
       - backend
+    networks:
+      - frontend_network
 
-  backend: Computex
-    image: backend_image:latest
+  backend:
+    container_name: django-app
+    build: ./Computex
     ports:
       - "8000:8000"
-    environment:
-      - DATABASE_URL=postgres://username:password@postgres:5432/dbname
     depends_on:
-      - postgres
+      - database
+    networks:
+      - backend_network
+      - frontend_network      
 
-  postgres:
+  database:
+    container_name: postgres 
     image: postgres:latest
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: computex
-    ports:
-      - "5432:5432"
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=computex
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend_network      
+
+volumes:
+  db-data:
+
+networks:
+  frontend_network:
+  backend_network:
