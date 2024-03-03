@@ -1,13 +1,18 @@
-FROM python:3.9-alpine
+Stage 1: Build React app
+FROM node:alpine AS builder
 
-WORKDIR /flask
+WORKDIR /app
 
-COPY requirements.txt .
+COPY package.json .
+COPY package-lock.json .
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN npm install
 
 COPY . .
 
-EXPOSE 8000
+RUN npm run build
 
-CMD gunicorn --bind 0.0.0.0:8000 wsgi:app
+# Stage 2: Serve React app with Nginx
+FROM nginx:alpine
+
+COPY --from=builder /app/build/ /usr/share/nginx/html

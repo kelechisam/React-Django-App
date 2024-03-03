@@ -1,7 +1,7 @@
 version: '3.8'
 
-services: Computexfrontend
-  frontend:
+services: 
+  frontend: Computexfrontend
     image: frontend_image:latest
     ports:
       - "80:80"
