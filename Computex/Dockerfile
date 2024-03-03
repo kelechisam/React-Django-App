@@ -1,11 +1,13 @@
-FROM ubuntu
+FROM python:3.9-alpine
 
-RUN apt-get update
-RUN apt install python3-pip -y
-RUN pip3 install Flask
+WORKDIR /flask
 
-WORKDIR /app
+COPY requirements.txt .
+
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python3", "-m" , "--host=0.0.0.0"]
+EXPOSE 8000
+
+CMD [start.sh]
